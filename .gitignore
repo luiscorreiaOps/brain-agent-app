@@ -1,0 +1,11 @@
+.envrc
+.cache/
+node_modules/
+dist/
+plugin-dist/
+coverage/
+.eslintcache
+/*.png
+*.local
+*.tar.gz
+*.zip

@@ -1,0 +1,44 @@
+name: Docker base image digest check
+
+# Dockerfile pins grafana/grafana by both tag and digest so builds are
+# reproducible. This check fails when the tag's live digest drifts from the
+# pinned digest, leaving the bump to a reviewed PR.
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  pull_request:
+    paths:
+      - Dockerfile
+  workflow_dispatch:
+
+jobs:
+  check-digest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Compare pinned digest against the tag's current digest
+        run: |
+          set -euo pipefail
+          line=$(grep -m1 '^FROM ' Dockerfile)
+          image_and_tag=$(echo "$line" | awk '{print $2}' | cut -d'@' -f1)
+          pinned_digest=$(echo "$line" | grep -o 'sha256:[a-f0-9]*' || true)
+
+          if [ -z "$pinned_digest" ]; then
+            echo "::error::Dockerfile's FROM line has no @sha256:... digest pinned."
+            exit 1
+          fi
+
+          current_digest=$(docker buildx imagetools inspect "$image_and_tag" 2>/dev/null | grep "^Digest:" | awk '{print $2}' || true)
+
+          if [ -z "$current_digest" ]; then
+            echo "::warning::Could not resolve $image_and_tag's current digest; skipping comparison this run."
+            exit 0
+          fi
+
+          if [ "$pinned_digest" != "$current_digest" ]; then
+            echo "::error::Dockerfile pins $image_and_tag@$pinned_digest, but the tag now resolves to $current_digest. Update the Dockerfile digest in a reviewed PR."
+            exit 1
+          fi
+
+          echo "Pinned digest matches $image_and_tag's current digest."

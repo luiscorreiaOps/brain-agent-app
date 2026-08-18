@@ -1,0 +1,26 @@
+apiVersion: 1
+
+apps:
+  - type: brain-agent
+    org_id: 1
+    disabled: false
+    jsonData:
+      # All fields below are optional -- brain-agent runs with sane defaults
+      # (semantic search on, strict per-project tenancy on, auto-learn off,
+      # at-rest encryption off) even with an empty jsonData block.
+      semanticSearchEnabled: true
+      strictTenancyEnabled: true
+      autoLearnAlerts: false
+      grafanaURL: "http://localhost:3000"
+      maxMemories: 50
+      ragOverlapThreshold: 0.0
+      retentionDays: 0
+      floodLimitPerMinute: 0
+      maxDbSizeMB: 500
+      auditLoggingEnabled: false
+      atRestEncryptionEnabled: false
+    secureJsonData:
+      # Only needed if autoLearnAlerts is true above -- a Grafana service
+      # account token with at least Viewer access, used to poll the
+      # alerting API.
+      grafanaToken: ""

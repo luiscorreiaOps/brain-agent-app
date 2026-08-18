@@ -1,0 +1,325 @@
+.brain-hub-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Inter', sans-serif;
+  color: #fff;
+  background: radial-gradient(circle at top right, #11141c 0%, #0a0b0f 100%);
+  min-height: calc(100vh - 60px);
+  position: relative;
+}
+
+.brain-config-button {
+  background: transparent;
+  color: #8e95a3;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  padding: 8px;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.brain-config-button:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.brain-status-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* Left padding is 1px tighter than .brain-card's 24px, nudging the brain
+     icon 1px further left than the Capabilities feature icons below it --
+     right padding is unrelated to that alignment and stays as it was. */
+  padding: 20px 30px 20px 23px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 30px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.brain-status-banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+}
+
+.brain-status-banner.is-connected::before {
+  animation: shine 4s infinite linear;
+}
+
+@keyframes shine {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.status-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px currentColor;
+}
+
+.status-dot.green {
+  background-color: #32d74b;
+  color: #32d74b;
+  animation: pulse-green 2s infinite;
+}
+
+.status-dot.yellow {
+  background-color: #ffd60a;
+  color: #ffd60a;
+  animation: pulse-yellow 2s infinite;
+}
+
+.status-dot.red {
+  background-color: #ff453a;
+  color: #ff453a;
+  animation: pulse-red 2s infinite;
+}
+
+@keyframes pulse-green {
+  0% { box-shadow: 0 0 0 0 rgba(50, 215, 75, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(50, 215, 75, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(50, 215, 75, 0); }
+}
+
+@keyframes pulse-yellow {
+  0% { box-shadow: 0 0 0 0 rgba(255, 214, 10, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(255, 214, 10, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 214, 10, 0); }
+}
+
+@keyframes pulse-red {
+  0% { box-shadow: 0 0 0 0 rgba(255, 69, 58, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(255, 69, 58, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 69, 58, 0); }
+}
+
+.status-text h2 {
+  margin: 0 0 4px 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+.status-text p {
+  margin: 0;
+  color: #8e95a3;
+  font-size: 0.95rem;
+  /* Reads as a discreet, auto-generated status line (not a real message
+     someone wrote), by fading toward whatever's actually behind it --
+     opacity rather than a fixed lighter hex, so this still looks right in
+     both Grafana's light and dark themes. */
+  opacity: 0.55;
+}
+
+.brain-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.brain-main-column,
+.brain-side-column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.brain-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 24px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.brain-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.brain-card h3 {
+  margin-top: 0;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #e2e8f0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.memory-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 0.72rem;
+  border-radius: 10px;
+  background: rgba(168, 85, 247, 0.15);
+  color: #c084fc;
+  border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+.project-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.project-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.project-item-info strong {
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.project-item-info span {
+  font-size: 0.85rem;
+  color: #8e95a3;
+}
+
+.zero-config-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.zero-config-feature:last-child {
+  border-bottom: none;
+}
+
+.feature-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #a855f7, #ec4899);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.feature-details h4 {
+  margin: 0 0 6px 0;
+  font-size: 1.05rem;
+}
+
+.feature-details p {
+  margin: 0;
+  color: #8e95a3;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #374151 !important;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px !important;
+  bottom: 3px !important;
+  background-color: white !important;
+  transition: .4s;
+  border-radius: 50%;
+  transform: translateX(0px) !important;
+}
+
+.toggle-switch input:checked + .slider {
+  background: linear-gradient(135deg, #a855f7, #ec4899) !important;
+}
+
+.toggle-switch input:checked + .slider:before {
+  transform: translateX(24px) !important;
+}
+
+/* Security-audit finding M7: .brain-grid's 2fr/1fr split never collapsed
+   on narrow viewports -- confirmed live at 390px (scrollWidth 457px, real
+   horizontal overflow), unlike agent-ai-app's equivalent page, which has
+   no overflow at the same width. min-width: 0 on the grid children matters
+   as much as the single-column switch itself: a grid/flex item's default
+   min-width is auto (its content's intrinsic width), which is exactly what
+   let a long project name or stat value force the column wider than its
+   track and reintroduce the same overflow even after switching to 1fr. */
+@media (max-width: 768px) {
+  .brain-hub-container {
+    padding: 16px;
+  }
+
+  .brain-status-banner {
+    padding: 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .brain-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .brain-main-column,
+  .brain-side-column {
+    min-width: 0;
+  }
+
+  .brain-card {
+    padding: 16px;
+    min-width: 0;
+  }
+}

@@ -32,5 +32,7 @@ jobs:
       - name: Build, package, sign, and attest plugin
         uses: grafana/plugin-actions/build-plugin@main
         with:
+          go-version: '1.26.5'
+          node-version: 22
           policy_token: ${{ secrets.GRAFANA_ACCESS_POLICY_TOKEN }}
           attestation: true

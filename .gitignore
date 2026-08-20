@@ -1,5 +1,8 @@
 .envrc
 .cache/
+.config/
+.magefile/
+/go/
 node_modules/
 dist/
 plugin-dist/

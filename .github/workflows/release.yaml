@@ -32,13 +32,13 @@ jobs:
           rm -rf brain-agent-app
           rm -f brain-agent-app-*.zip brain-agent-app-*.zip.sha1
 
-      - name: Build, package, sign, and validate plugin
+      - name: Build, package, and validate plugin
         id: package-plugin
         uses: grafana/plugin-actions/package-plugin@main
         with:
           go-version: '1.26.5'
           node-version: 22
-          policy_token: ${{ secrets.GRAFANA_ACCESS_POLICY_TOKEN }}
+          policy_token: ${{ vars.GRAFANA_SIGN_PLUGIN == 'true' && secrets.GRAFANA_ACCESS_POLICY_TOKEN || '' }}
 
       - name: Get plugin metadata
         id: metadata

@@ -1,6 +1,8 @@
 .envrc
 .cache/
-.config/
+.config/*
+!.config/webpack/
+!.config/webpack/webpack.config.ts
 .magefile/
 /go/
 node_modules/

@@ -30,7 +30,7 @@ spec:
               value: brain-agent
           volumeMounts:
             - name: plugin-data
-              mountPath: /var/lib/grafana/plugins/brain-agent
+              mountPath: /var/lib/grafana/plugins/brain-agent-app
             - name: datasources
               mountPath: /etc/grafana/provisioning/datasources
             - name: dashboard-provider

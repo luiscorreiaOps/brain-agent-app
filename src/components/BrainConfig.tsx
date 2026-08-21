@@ -59,7 +59,7 @@ export function BrainConfig({ plugin }: Props) {
   // a stale snapshot.
   useEffect(() => {
     getBackendSrv()
-      .get('/api/plugins/brain-agent/settings')
+      .get('/api/plugins/brain-agent-app/settings')
       .then((res) => {
         const jsonData = res?.jsonData || {};
         setMaxMemories(jsonData.maxMemories || DEFAULT_MAX_MEMORIES);
@@ -74,14 +74,14 @@ export function BrainConfig({ plugin }: Props) {
         setGrafanaURL(jsonData.grafanaURL || '');
         setTrustedIntegrationLogin(jsonData.trustedIntegrationLogin || '');
       })
-      .catch((err) => console.error('Failed to fetch brain-agent settings', err));
+      .catch((err) => console.error('Failed to fetch brain-agent-app settings', err));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const testDatabase = async () => {
     setDbStatus('checking');
     try {
-      const res = await getBackendSrv().get(`/api/plugins/brain-agent/resources/health`);
+      const res = await getBackendSrv().get(`/api/plugins/brain-agent-app/resources/health`);
       if (res && res.status === 'error') {
         setDbStatus('error');
       } else {
@@ -95,7 +95,7 @@ export function BrainConfig({ plugin }: Props) {
   const handleSave = async () => {
     setSaveStatus('saving');
     try {
-      const current = await getBackendSrv().get('/api/plugins/brain-agent/settings');
+      const current = await getBackendSrv().get('/api/plugins/brain-agent-app/settings');
       const body: Record<string, unknown> = {
         enabled: true,
         pinned: true,
@@ -132,7 +132,7 @@ export function BrainConfig({ plugin }: Props) {
       if (Object.keys(secureJsonData).length > 0) {
         body.secureJsonData = secureJsonData;
       }
-      await getBackendSrv().post('/api/plugins/brain-agent/settings', body);
+      await getBackendSrv().post('/api/plugins/brain-agent-app/settings', body);
       setGrafanaToken('');
       setEmbeddingAPIKey('');
       setEncryptionKey('');
@@ -414,7 +414,7 @@ export function BrainConfig({ plugin }: Props) {
         <p style={{ color: '#8e95a3', fontSize: '0.85rem', marginBottom: '16px' }}>Force generate a new AES key if the current one is irrecoverably corrupted. This will destroy access to all previous data.</p>
         <button onClick={() => {
           if(confirm('DANGER: This will delete the current corrupted AES key and generate a new one. ALL PREVIOUS MEMORY WILL BE UNREADABLE. Are you absolutely sure?')) {
-            getBackendSrv().post('/api/plugins/brain-agent/resources/crypto/reset').then(() => notify('success', 'Key deleted and reset successfully.')).catch(() => notify('error', 'Failed to reset key'));
+            getBackendSrv().post('/api/plugins/brain-agent-app/resources/crypto/reset').then(() => notify('success', 'Key deleted and reset successfully.')).catch(() => notify('error', 'Failed to reset key'));
           }
         }} disabled={!isAdmin} style={{ padding: '10px 16px', background: 'rgba(255, 159, 10, 0.2)', border: '1px solid #ff9f0a', borderRadius: '6px', color: '#ff9f0a', cursor: isAdmin ? 'pointer' : 'not-allowed', opacity: isAdmin ? 1 : 0.5, fontWeight: 500, transition: 'all 0.2s' }}
                 onMouseOver={(e) => { if (isAdmin) { e.currentTarget.style.background = '#ff9f0a'; e.currentTarget.style.color = '#fff'; } }}

@@ -105,8 +105,8 @@ jobs:
 
       - name: Build Linux backend binary
         run: |
-          go build -buildvcs=false -o dist/gpx_brain-agent_linux_amd64 ./pkg
-          chmod +x dist/gpx_brain-agent_linux_amd64
+          go build -buildvcs=false -o dist/gpx_brain_agent_app_linux_amd64 ./pkg
+          chmod +x dist/gpx_brain_agent_app_linux_amd64
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4

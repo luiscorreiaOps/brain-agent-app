@@ -29,7 +29,7 @@ const mockPlugin = {
   },
 } as any;
 
-// BrainConfig's mount-time useEffect re-fetches /api/plugins/brain-agent/
+// BrainConfig's mount-time useEffect re-fetches /api/plugins/brain-agent-app/
 // settings and calls setState in a .then() that resolves on a later
 // microtask than render() itself -- render() only wraps the synchronous
 // part of mounting in act(), so without this, that state update lands
@@ -69,7 +69,7 @@ describe('BrainConfig', () => {
     fireEvent.click(screen.getByText(/reset key/i));
 
     expect(confirmSpy).toHaveBeenCalled();
-    expect(postMock).toHaveBeenCalledWith('/api/plugins/brain-agent/resources/crypto/reset');
+    expect(postMock).toHaveBeenCalledWith('/api/plugins/brain-agent-app/resources/crypto/reset');
     // The click handler's .then(() => notify(...)) resolves on a microtask
     // after this point -- wait for it before asserting, since it's a real
     // async continuation, not a synchronous side effect of the click.
@@ -93,7 +93,7 @@ describe('BrainConfig', () => {
     });
 
     expect(postMock).toHaveBeenCalledWith(
-      '/api/plugins/brain-agent/settings',
+      '/api/plugins/brain-agent-app/settings',
       expect.objectContaining({
         jsonData: expect.objectContaining({
           grafanaURL: 'http://grafana.internal:3000',

@@ -2,9 +2,9 @@
   "$schema": "https://raw.githubusercontent.com/grafana/grafana/main/docs/sources/developers/plugins/plugin.schema.json",
   "type": "app",
   "name": "Brain Agent",
-  "id": "brain-agent",
+  "id": "brain-agent-app",
   "backend": true,
-  "executable": "gpx_brain-agent",
+  "executable": "gpx_brain_agent_app",
   "preload": true,
   "info": {
     "keywords": ["ai", "memory", "rag", "grafana"],
@@ -32,7 +32,7 @@
     {
       "type": "page",
       "name": "Brain Hub",
-      "path": "/a/brain-agent/hub",
+      "path": "/a/brain-agent-app/hub",
       "role": "Viewer",
       "addToNav": true,
       "defaultNav": true
@@ -40,7 +40,7 @@
     {
       "type": "page",
       "name": "Configuration",
-      "path": "/plugins/brain-agent",
+      "path": "/plugins/brain-agent-app",
       "role": "Admin",
       "addToNav": true
     }

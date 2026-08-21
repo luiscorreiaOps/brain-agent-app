@@ -14,7 +14,7 @@ function notify(type: 'success' | 'error', message: string): void {
   getAppEvents().publish({ type: appEvent.name, payload: [message] });
 }
 
-const SETTINGS_URL = '/api/plugins/brain-agent/settings';
+const SETTINGS_URL = '/api/plugins/brain-agent-app/settings';
 
 // Minimal shape this page actually reads off Grafana's /api/plugins list
 // response (see the agent-ai-fork detection effect below) -- that endpoint
@@ -105,7 +105,7 @@ export function BrainHub() {
         // to reports of toggles "resetting on reload" when the real saved
         // value never changed. Surface it instead (see the Brain Toggles
         // card banner) and let the toggles stay disabled until a retry.
-        console.error('Failed to fetch brain-agent settings', err);
+        console.error('Failed to fetch brain-agent-app settings', err);
         setSettingsLoadError(true);
       });
   };
@@ -158,7 +158,7 @@ export function BrainHub() {
 
     // Fetch memory stats
     getBackendSrv()
-      .get('/api/plugins/brain-agent/resources/stats', undefined, undefined, { showErrorAlert: false })
+      .get('/api/plugins/brain-agent-app/resources/stats', undefined, undefined, { showErrorAlert: false })
       .then((res) => {
         if (res) {
           setStats(res);
@@ -177,7 +177,7 @@ export function BrainHub() {
     // facts yet) never appears in /stats above -- this is the only way
     // the Pending Suggestions card learns about it.
     getBackendSrv()
-      .get('/api/plugins/brain-agent/resources/pending_facts/projects', undefined, undefined, { showErrorAlert: false })
+      .get('/api/plugins/brain-agent-app/resources/pending_facts/projects', undefined, undefined, { showErrorAlert: false })
       .then((res) => {
         (res?.projects || []).forEach(refreshPendingForProject);
       })
@@ -188,7 +188,7 @@ export function BrainHub() {
 
   const refreshPendingForProject = (project: string) => {
     getBackendSrv()
-      .get(`/api/plugins/brain-agent/resources/pending_facts?project=${encodeURIComponent(project)}`, undefined, undefined, { showErrorAlert: false })
+      .get(`/api/plugins/brain-agent-app/resources/pending_facts?project=${encodeURIComponent(project)}`, undefined, undefined, { showErrorAlert: false })
       .then((res) => {
         setPendingFacts((prev) => ({ ...prev, [project]: res?.facts || [] }));
       })
@@ -197,10 +197,10 @@ export function BrainHub() {
 
   const handleApprovePending = (project: string, id: number) => {
     getBackendSrv()
-      .post(`/api/plugins/brain-agent/resources/pending_facts/approve?id=${id}`)
+      .post(`/api/plugins/brain-agent-app/resources/pending_facts/approve?id=${id}`)
       .then(() => {
         refreshPendingForProject(project);
-        getBackendSrv().get('/api/plugins/brain-agent/resources/stats').then((res) => res && setStats(res));
+        getBackendSrv().get('/api/plugins/brain-agent-app/resources/stats').then((res) => res && setStats(res));
       })
       .catch((err) => {
         console.error(err);
@@ -210,7 +210,7 @@ export function BrainHub() {
 
   const handleRejectPending = (project: string, id: number) => {
     getBackendSrv()
-      .post(`/api/plugins/brain-agent/resources/pending_facts/reject?id=${id}`)
+      .post(`/api/plugins/brain-agent-app/resources/pending_facts/reject?id=${id}`)
       .then(() => refreshPendingForProject(project))
       .catch((err) => {
         console.error(err);
@@ -221,7 +221,7 @@ export function BrainHub() {
   const handleManage = (project: string) => {
     if (confirm(`Do you want to clear all memory facts for project: ${project}?`)) {
       getBackendSrv()
-        .delete(`/api/plugins/brain-agent/resources/memory?project_id=${encodeURIComponent(project)}`)
+        .delete(`/api/plugins/brain-agent-app/resources/memory?project_id=${encodeURIComponent(project)}`)
         .then(() => {
           notify('success', 'Memory cleared successfully!');
           if (viewingProject === project) {
@@ -229,7 +229,7 @@ export function BrainHub() {
           }
           // Refresh stats
           getBackendSrv()
-            .get('/api/plugins/brain-agent/resources/stats')
+            .get('/api/plugins/brain-agent-app/resources/stats')
             .then((res) => {
               if (res) {
                 setStats(res);
@@ -249,7 +249,7 @@ export function BrainHub() {
       return;
     }
     getBackendSrv()
-      .get(`/api/plugins/brain-agent/resources/facts?project=${encodeURIComponent(project)}`)
+      .get(`/api/plugins/brain-agent-app/resources/facts?project=${encodeURIComponent(project)}`)
       .then((res) => {
         setViewingFacts((res?.facts || []) as MemoryRecord[]);
         setViewingProject(project);
@@ -263,7 +263,7 @@ export function BrainHub() {
   const handleClearAll = () => {
     if (confirm(`Do you want to completely WIPE all stored memories for all projects?`)) {
       getBackendSrv()
-        .delete(`/api/plugins/brain-agent/resources/memory?project_id=all`)
+        .delete(`/api/plugins/brain-agent-app/resources/memory?project_id=all`)
         .then(() => {
           notify('success', 'All memories cleared successfully!');
           setStats({});
@@ -293,7 +293,7 @@ export function BrainHub() {
     <div className="brain-hub-container">
       <div className={`brain-status-banner${agentStatus === 'green' ? ' is-connected' : ''}`}>
         <div className="status-text" style={{ display: 'flex', alignItems: 'center' }}>
-          <img src="public/plugins/brain-agent/img/brain-logo.png" alt="Brain Logo" style={{ width: '76px', height: '76px', marginRight: '16px', filter: 'saturate(1.25) drop-shadow(0 0 3px rgba(255,255,255,0.04))', borderRadius: '50%' }} />
+          <img src="public/plugins/brain-agent-app/img/brain-logo.png" alt="Brain Logo" style={{ width: '76px', height: '76px', marginRight: '16px', filter: 'saturate(1.25) drop-shadow(0 0 3px rgba(255,255,255,0.04))', borderRadius: '50%' }} />
           <div>
             <h2>Brain Connection</h2>
             <p>
@@ -313,7 +313,7 @@ export function BrainHub() {
             type="button" 
             className="brain-config-button"
             title="Plugin configuration"
-            onClick={() => { window.location.href = '/plugins/brain-agent?page=configuration'; }}
+            onClick={() => { window.location.href = '/plugins/brain-agent-app?page=configuration'; }}
           >
             <Icon name="cog" size="xl" />
           </button>

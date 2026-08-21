@@ -12,7 +12,7 @@ spec:
     security:
       admin_user: admin
     plugins:
-      allow_loading_unsigned_plugins: brain-agent
+      allow_loading_unsigned_plugins: brain-agent-app
 
   deployment:
     spec:
@@ -32,7 +32,7 @@ spec:
                   # REPLACE_ME: point this at your own release asset once
                   # published (e.g. a GitHub Releases download URL, or an
                   # internal artifact host) -- this repo doesn't host one.
-                  value: "https://github.com/REPLACE_ME/brain-agent/releases/latest/download/brain-agent-linux-amd64.zip;brain-agent"
+                  value: "https://github.com/luiscorreiaOps/brain-agent-app/releases/latest/download/brain-agent-app-1.0.0.zip;brain-agent-app"
               volumeMounts:
                 - name: llm-plugin-config
                   mountPath: /etc/grafana/provisioning/plugins

@@ -11,18 +11,17 @@ const config = (_env: Record<string, string>): Configuration => ({
   context: join(__dirname, 'src'),
   entry: './module.tsx',
   mode: _env.production ? 'production' : 'development',
-  // false in production (security-audit finding M-08 in the sibling
-  // agent-ai-app repo, never applied here): a source map always generated,
-  // even for a production build, exposed the full original TypeScript
-  // source alongside the shipped bundle.
-  devtool: _env.production ? false : 'source-map',
+  // Grafana's plugin validator requires the production source map in the
+  // release archive. hidden-source-map emits it without referencing it from
+  // the bundled module.
+  devtool: _env.production ? 'hidden-source-map' : 'source-map',
   output: {
     clean: true,
     filename: 'module.js',
     path: resolve(__dirname, 'dist'),
     publicPath: '',
     libraryTarget: 'amd',
-    uniqueName: 'brain-agent',
+    uniqueName: 'brain-agent-app',
   },
   externals: [
     'lodash',

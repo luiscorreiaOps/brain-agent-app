@@ -1,6 +1,6 @@
 <table>
 <tr>
-<td width="110" valign="middle" align="center"><img src="/public/plugins/brain-agent/img/brain-logo.png" width="90" alt="Brain Agent" style="border-radius: 10px;" /></td>
+<td width="110" valign="middle" align="center"><img src="https://raw.githubusercontent.com/luiscorreiaOps/brain-agent-app/main/src/img/brain-logo.png" width="90" alt="Brain Agent" style="border-radius: 10px;" /></td>
 <td valign="middle">
 
 # Brain Agent
@@ -51,9 +51,9 @@ the field empty to keep the original, narrower default: only
 
 ## Screenshots
 
-![Brain Hub](/public/plugins/brain-agent/img/screenshots/brain-hub.png)
-![Structured memory & pending suggestions](/public/plugins/brain-agent/img/screenshots/structured-memory-and-suggestions.png)
-![Configuration](/public/plugins/brain-agent/img/screenshots/configuration-page.png)
+![Brain Hub](https://raw.githubusercontent.com/luiscorreiaOps/brain-agent-app/main/src/img/screenshots/brain-hub.png)
+![Structured memory & pending suggestions](https://raw.githubusercontent.com/luiscorreiaOps/brain-agent-app/main/src/img/screenshots/structured-memory-and-suggestions.png)
+![Configuration](https://raw.githubusercontent.com/luiscorreiaOps/brain-agent-app/main/src/img/screenshots/configuration-page.png)
 
 ## What it does
 
@@ -175,4 +175,4 @@ dependencies, and GitHub Actions themselves.
 
 ## License
 
-MIT -- see [LICENSE](LICENSE).
+MIT -- see [LICENSE](https://github.com/luiscorreiaOps/brain-agent-app/blob/main/LICENSE).

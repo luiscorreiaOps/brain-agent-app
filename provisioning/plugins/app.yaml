@@ -1,7 +1,7 @@
 apiVersion: 1
 
 apps:
-  - type: brain-agent
+  - type: shortbobcat2735-brainagent-app
     org_id: 1
     disabled: false
     jsonData:

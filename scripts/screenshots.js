@@ -28,12 +28,12 @@ async function login(page) {
   await login(page);
 
   console.log('1. Brain Hub...');
-  await page.goto(`${BASE}/a/brain-agent/hub`, { waitUntil: 'networkidle2' });
+  await page.goto(`${BASE}/a/shortbobcat2735-brainagent-app/hub`, { waitUntil: 'networkidle2' });
   await new Promise((r) => setTimeout(r, 2000));
   await page.screenshot({ path: path.join(DIR, 'brain-hub.png'), fullPage: true });
 
   console.log('2. Configuration page...');
-  await page.goto(`${BASE}/plugins/brain-agent?page=configuration`, { waitUntil: 'networkidle2' });
+  await page.goto(`${BASE}/plugins/shortbobcat2735-brainagent-app?page=configuration`, { waitUntil: 'networkidle2' });
   await new Promise((r) => setTimeout(r, 1500));
   await page.screenshot({ path: path.join(DIR, 'configuration-page.png'), fullPage: true });
 

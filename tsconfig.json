@@ -15,6 +15,7 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "declaration": false,
+    "allowImportingTsExtensions": true,
     "sourceMap": true,
     "types": ["jest", "@testing-library/jest-dom"]
   },

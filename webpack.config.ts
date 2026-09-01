@@ -21,7 +21,7 @@ const config = (_env: Record<string, string>): Configuration => ({
     path: resolve(__dirname, 'dist'),
     publicPath: '',
     libraryTarget: 'amd',
-    uniqueName: 'brain-agent-app',
+    uniqueName: 'shortbobcat2735-brainagent-app',
   },
   externals: [
     'lodash',

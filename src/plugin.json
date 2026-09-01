@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/grafana/grafana/main/docs/sources/developers/plugins/plugin.schema.json",
   "type": "app",
   "name": "Brain Agent",
-  "id": "brain-agent-app",
+  "id": "shortbobcat2735-brainagent-app",
   "backend": true,
   "executable": "gpx_brain_agent_app",
   "preload": true,
@@ -17,8 +17,8 @@
       "large": "img/brain-logo.png"
     },
     "links": [
-      { "name": "Website", "url": "https://github.com/luiscorreiaOps/brain-agent-app" },
-      { "name": "License", "url": "https://github.com/luiscorreiaOps/brain-agent-app/blob/main/LICENSE" }
+      { "name": "Website", "url": "https://github.com/luiscorreiaops/brain-agent-app" },
+      { "name": "License", "url": "https://github.com/luiscorreiaops/brain-agent-app/blob/main/LICENSE" }
     ],
     "screenshots": [
       { "name": "Brain Hub", "path": "img/screenshots/brain-hub.png" },
@@ -32,7 +32,7 @@
     {
       "type": "page",
       "name": "Brain Hub",
-      "path": "/a/brain-agent-app/hub",
+      "path": "/a/shortbobcat2735-brainagent-app/hub",
       "role": "Viewer",
       "addToNav": true,
       "defaultNav": true
@@ -40,7 +40,7 @@
     {
       "type": "page",
       "name": "Configuration",
-      "path": "/plugins/brain-agent-app",
+      "path": "/plugins/shortbobcat2735-brainagent-app",
       "role": "Admin",
       "addToNav": true
     }

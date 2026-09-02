@@ -149,7 +149,7 @@ func backupFilesAtomically(dataDir string, paths []string, timestamp int64) erro
 		applied = append(applied, done{from: p, to: backupPath})
 	}
 
-	dir, err := os.Open(dataDir)
+	dir, err := os.Open(dataDir) // #nosec G304 -- dataDir is Grafana's plugin data directory, opened only to fsync after key/database backup renames.
 	if err != nil {
 		return fmt.Errorf("open data directory for fsync: %w", err)
 	}

@@ -20,4 +20,4 @@ Initial public release.
 - Health-check API so dependent AI agents know whether memory storage is available.
 - Optional PII detection (opt-in, off by default): a heuristic scan runs on every new fact, flagging matches for email addresses, Brazilian CPF, US SSN, IBAN, EU VAT numbers, and Latin American national ID formats (Mexican CURP, Chilean RUT, Argentine DNI) -- never blocks the write, only surfaces a review warning in Brain Hub.
 - Optional real semantic search: point `search_memory` at any OpenAI-compatible `/embeddings` endpoint in Configuration's RAG section and it ranks facts by real embedding cosine similarity instead of word-overlap scoring -- unset (the default) keeps the original word-overlap behavior exactly as-is.
-- Requires Grafana >=12.0.0.
+- Requires Grafana 12 with a React 19-compatible shared JSX runtime patch: >=12.0.10 <12.1.0, >=12.1.7 <12.2.0, or >=12.2.5. Grafana 11 isn't supported.

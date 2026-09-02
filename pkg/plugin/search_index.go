@@ -60,7 +60,7 @@ func (a *App) InitSearchIndexKey(dataDir string) error {
 	keyPath := filepath.Join(dataDir, fmt.Sprintf("%s.key", orgSuffixedName("brain_hmac", a.orgID)))
 
 	if _, err := os.Stat(keyPath); err == nil {
-		key, err := os.ReadFile(keyPath)
+		key, err := os.ReadFile(keyPath) // #nosec G304 -- keyPath is constructed under Grafana's plugin data directory with a fixed file name.
 		if err != nil {
 			return fmt.Errorf("FATAL: existing HMAC index key file found but could not be read: %w", err)
 		}
@@ -76,7 +76,7 @@ func (a *App) InitSearchIndexKey(dataDir string) error {
 	if _, err := io.ReadFull(rand.Reader, key); err != nil {
 		return fmt.Errorf("failed to generate HMAC index key: %w", err)
 	}
-	f, err := os.OpenFile(keyPath, os.O_CREATE|os.O_EXCL|os.O_WRONLY, 0600)
+	f, err := os.OpenFile(keyPath, os.O_CREATE|os.O_EXCL|os.O_WRONLY, 0600) // #nosec G304 -- keyPath is constructed under Grafana's plugin data directory with a fixed file name.
 	if err != nil {
 		return fmt.Errorf("failed to securely create HMAC index key file (prevented overwrite): %w", err)
 	}

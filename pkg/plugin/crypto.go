@@ -59,7 +59,7 @@ func (a *App) InitCrypto(dataDir string, providedKeyBase64 string) error {
 
 	// Try to load existing key
 	if _, err := os.Stat(keyPath); err == nil {
-		key, err := os.ReadFile(keyPath)
+		key, err := os.ReadFile(keyPath) // #nosec G304 -- keyPath is constructed under Grafana's plugin data directory with a fixed file name.
 		if err != nil {
 			return fmt.Errorf("FATAL: existing AES key file found but could not be read: %w", err)
 		}
@@ -79,7 +79,7 @@ func (a *App) InitCrypto(dataDir string, providedKeyBase64 string) error {
 	}
 
 	// Save the key using O_CREATE | O_EXCL to absolutely ensure we NEVER overwrite an existing file
-	f, err := os.OpenFile(keyPath, os.O_CREATE|os.O_EXCL|os.O_WRONLY, 0600)
+	f, err := os.OpenFile(keyPath, os.O_CREATE|os.O_EXCL|os.O_WRONLY, 0600) // #nosec G304 -- keyPath is constructed under Grafana's plugin data directory with a fixed file name.
 	if err != nil {
 		return fmt.Errorf("failed to securely create AES key file (prevented overwrite): %w", err)
 	}

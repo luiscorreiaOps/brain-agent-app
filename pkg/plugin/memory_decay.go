@@ -74,7 +74,7 @@ func (a *App) touchLastAccessed(ctx context.Context, ids []int64) {
 		placeholders[i] = "?"
 		args[i] = id
 	}
-	query := fmt.Sprintf("UPDATE memory_store SET last_accessed = CURRENT_TIMESTAMP WHERE id IN (%s)", strings.Join(placeholders, ","))
+	query := fmt.Sprintf("UPDATE memory_store SET last_accessed = CURRENT_TIMESTAMP WHERE id IN (%s)", strings.Join(placeholders, ",")) // #nosec G201 -- SQL contains only generated placeholders; IDs are bound parameters.
 	if _, err := a.db.ExecContext(ctx, query, args...); err != nil {
 		log.DefaultLogger.Warn("failed to update last_accessed for matched facts", "error", err)
 	}

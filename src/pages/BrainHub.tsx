@@ -122,7 +122,7 @@ export function BrainHub() {
     getBackendSrv()
       .get('/api/plugins', { enabled: 1 }, undefined, { showErrorAlert: false })
       .then(async (plugins) => {
-        let foundAgents: DetectedAgentPlugin[] = plugins.filter((p: DetectedAgentPlugin) => p.id && p.id.includes('agent-ai'));
+        let foundAgents: DetectedAgentPlugin[] = plugins.filter((p: DetectedAgentPlugin) => p.id && (p.id.includes('agent-ai') || p.id.includes('agentai')));
         // Sort to prefer original repo
         foundAgents.sort((a: DetectedAgentPlugin, b: DetectedAgentPlugin) => {
           if (a.id === 'agent-ai-app') return -1;

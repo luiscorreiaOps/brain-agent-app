@@ -1,0 +1,17 @@
+title = "Brain Agent gitleaks config"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Ignore local dependency, build, and tool caches that are not source artifacts."
+paths = [
+  '''^\.cache/''',
+  '''^\.magefile/''',
+  '''^go/''',
+  '''^node_modules/''',
+  '''^node_modules\.bak-[^/]+/''',
+  '''^dist/''',
+  '''^plugin-dist/''',
+  '''^coverage/''',
+]

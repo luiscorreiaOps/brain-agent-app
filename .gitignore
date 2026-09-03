@@ -6,6 +6,7 @@
 .magefile/
 /go/
 node_modules/
+node_modules.bak-*/
 dist/
 plugin-dist/
 coverage/
